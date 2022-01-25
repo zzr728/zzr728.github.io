@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Rui&#39;s blog</title>
+  
+  <subtitle>home page</subtitle>
+  <link href="https://rui728.com/atom.xml" rel="self"/>
+  
+  <link href="https://rui728.com/"/>
+  <updated>2022-01-20T14:12:19.455Z</updated>
+  <id>https://rui728.com/</id>
+  
+  <author>
+    <name>Zhang Ze Rui</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Rui&#39;s blog</title>
+    <link href="https://rui728.com/2022/01/20/hello-world/"/>
+    <id>https://rui728.com/2022/01/20/hello-world/</id>
+    <published>2022-01-20T07:29:17.481Z</published>
+    <updated>2022-01-20T14:12:19.455Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to Rui’s blog! </p><h2 id="Let’s-go"><a href="#Let’s-go" class="headerlink" title="Let’s go!"></a>Let’s go!</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Welcome to Rui’s blog! &lt;/p&gt;
+&lt;h2 id=&quot;Let’s-go&quot;&gt;&lt;a href=&quot;#Let’s-go&quot; class=&quot;headerlink&quot; title=&quot;Let’s go!&quot;&gt;&lt;/a&gt;Let’s go!&lt;/h2&gt;&lt;h3 id=&quot;Create-a</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>
