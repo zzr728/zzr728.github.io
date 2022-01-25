@@ -476,17 +476,4 @@ console.log("%c Github %c", "background:#333333; color:#ffffff", "", "https://gi
     action.scroolToTop();
     action.preview();
     CONFIG.fancybox && action.fancybox();
-    CONFIG.pjax && action.pjax();
-    CONFIG.lazyload.enable && action.lazyload();
-    CONFIG.donate.enable && action.donate();
-    (CONFIG.lazyload && CONFIG.fancybox) && action.fixLazyloadFancybox();
-    CONFIG.carrier.enable && action.carrier();
-    CONFIG.qrcode.enable && action.qrcode();
-    CONFIG.toc.enable && action.toc();
-    CONFIG.scrollbar.type === 'simple' && action.scrollbar();
-    CONFIG.notification.enable && action.notification();
-    CONFIG.search.enable && action.search();
-    CONFIG.loading.lottie && action.lottie();
-  });
-
-})(jQuery);
+   
