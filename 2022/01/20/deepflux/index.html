@@ -189,15 +189,135 @@
   </div>
 </nav>
   <main id="main">
-  <section class="tags">
-    <header class="header">
-  <h1 class="header-title">标签</h1>
-  <p class="header-subtitle">共: 0 个</p>
-</header>
-    <div class="tags-container">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/blog1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">deepflux详解</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>January 20, 2022</span>
       
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3053</span>
     </div>
-  </section>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+        <p>The first blog is the detailed annotation of deepflux，which appears in IJCV. And its link is <a target="_blank" rel="noopener" href="https://doi.org/10.1007/s11263-021-01430-6">here</a>.</p>
+<p>The main reason I select this paper is the author is my mentor  and I have read it recently.</p>
+<h2 id="Let’s-go"><a href="#Let’s-go" class="headerlink" title="Let’s go!"></a>Let’s go!</h2><h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction:"></a>Introduction:</h3><p>​        Skeletonization algorithms provide a concise and  effective representation of deformable objects, while supporting many applications, including object recognition and retrieval,pose estimation, balabala….（就是骨架检测能用到很多方面的运用，所以研究很重要）</p>
+<p>所以这个时候就看下前人的related work，发现别人的work的效率不是很高。</p>
+<p>for example：</p>
+<ol>
+<li>a gradient intensity map, driven by geometric constraints between skeletal pixels and edge fragments （根据骨架像素和边缘的几何约束的梯度来进行骨架的计算，但是就是在没有物体形状和位置信息的情况下是无法轻松的处理复杂数据的）</li>
+<li>improved learning-based methods（虽然较上述的方法有了极大的提高——CNN给行业带来太大的巨变了，但是思想还是一个二分类像素的问题，但是在多个物体的场景，或者物体背景也有像素点时就会出现不太好的情况）</li>
+</ol>
+<p>于是在learning-based methods基础上提出了flux的想法：</p>
+<p>​        training a convolutional neural network to predict a two-dimensional vector field encoding the flux representation.         Then recover the skeleton from the flux representation, which captures the position of skeletal pixels relative to         semantically meaningful entities, resulting in precise skeleton detection.（给每个像素点一个向量，也就是flux，然        后通过向量来计算骨架，相当于给分类增加了信息量。）</p>
+<h3 id="Related-work"><a href="#Related-work" class="headerlink" title="Related work"></a>Related work</h3><p>As I mentioned in the above, the work is divide into two methods.</p>
+<ul>
+<li><p> The first method is a gradient intensity map, which includes a lot of different ways to achieve it , such as <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1703.08628">AMAT</a>. However, they all haven’t very great performance.（因为没有太大参考价值，所以不做详细描述）</p>
+</li>
+<li><p>The second method is the learning-based method.</p>
+</li>
+</ul>
+<h3 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h3><p>The main idea :</p>
+<p>we define a two-dimensional unit flux vector pointing to the nearest skeleton pixel, generating a flux vector field. Within this representation, the object skeleton corresponds to pixels where the net inward flux is positive, following the motivation behind past flux-based methods for skeletonizing binary objects. We then use a CNN to learn the spatial context flux, via a pixel-wise regression task in place of binary classification（给上下文空间的像素点定义一个向量指向最近的骨架像素，这个向量就是通量，然后使用CNN来学习flux，通过每个像素的回归来代替二分类）</p>
+<p>将像素点分为三类：</p>
+<ul>
+<li>Rs: skeleton pixels</li>
+<li>Rb: background pixels</li>
+<li>Rc: skeleton spatial context. they are obtained by dilating the binary skeleton map with a disk of radius r, and subtract skeleton pixels Rs </li>
+</ul>
+<p>Then define skeleton points as the local flux minima, or, alternatively, as sinks “absorbing” flux from nearby points，This approach leads to more robust localization and better connectivity between skeletal branches</p>
+<p>于是通量F(p)为</p>
+<p><img   class="lazyload" data-original="/2022/01/20/deepflux/blog\myblog\source_posts\deepflux\1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>Use the color wheel to show the correspondence between color and orientation:</p>
+<p><img   class="lazyload" data-original="/2022/01/20/deepflux/blog\myblog\source_posts\deepflux\flux2.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p> Advantages:</p>
+<p>​        利用了每个候选像素周围的邻域内通量预测之间的一致性。如果骨架位置发生变化，其周围的通量场也会发生显著变化。一个有益的副作用是，该方法不直接依赖于更深层CNN层产生的粗反应来定位更大尺度的骨骼，这进一步减少了定位误差。这些特性使骨架点的定位更加稳健，特别是在结扎点周围，更不容易出现缺口、不连续和不规则性。</p>
+<p>Then we can see the figure:<br><img   class="lazyload" data-original="/2022/01/20/deepflux/blog\myblog\source_posts\deepflux\3.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>it can recover medial axes reflecting object part symmetries by localizing points with high inward flux (followed by a morphological closing), or by using additional convolution layers, which makes the entire pipeline end-to-end trainable（就是说通量这个信息量可以使用额外的卷积层来学习，或者使用通量大的信息进行定位）</p>
+<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>Zhang Ze Rui</li>
+    <li><strong>本文链接：</strong><a href="https://rui728.com/2022/01/20/deepflux/index.html" title="https:&#x2F;&#x2F;rui728.com&#x2F;2022&#x2F;01&#x2F;20&#x2F;deepflux&#x2F;index.html">https:&#x2F;&#x2F;rui728.com&#x2F;2022&#x2F;01&#x2F;20&#x2F;deepflux&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img   class="lazyload" data-original="https://pic.izhaoo.com/alipay.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" >
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+        
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "KTTvK89Ym9sJUzw7AEnVLQCG-gzGzoHsz",
+        app_key: "OUIqcMpQxPPrIJLwCMwCl9RB",
+        placeholder: "Just go go",
+        avatar: "mm",
+        pageSize: "10",
+        lang: "",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Let%E2%80%99s-go"><span class="toc-text">Let’s go!</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Introduction"><span class="toc-text">Introduction:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Related-work"><span class="toc-text">Related work</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Methods"><span class="toc-text">Methods</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conclusion"><span class="toc-text">Conclusion</span></a></li></ol></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
 </main>
   
 
