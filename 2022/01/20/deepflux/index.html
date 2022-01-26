@@ -201,7 +201,7 @@
     <div class="head-info">
       <span class="post-info-item"><i class="iconfont iconcalendar"></i>January 20, 2022</span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3053</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3056</span>
     </div>
   </div>
 </section>
@@ -236,12 +236,12 @@
 </ul>
 <p>Then define skeleton points as the local flux minima, or, alternatively, as sinks “absorbing” flux from nearby points，This approach leads to more robust localization and better connectivity between skeletal branches</p>
 <p>于是通量F(p)为</p>
-<p><img   class="lazyload" data-original="/2022/01/20/deepflux/blog\myblog\source_posts\deepflux\1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p><img   class="lazyload" data-original="/2022/01/20/deepflux/blog\myblog\source_posts\deepflux\1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">1</span></p>
 <p>Use the color wheel to show the correspondence between color and orientation:</p>
-<p><img   class="lazyload" data-original="/2022/01/20/deepflux/blog\myblog\source_posts\deepflux\flux2.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p><img   class="lazyload" data-original="/2022/01/20/deepflux/blog\myblog\source_posts\deepflux\flux2.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">2</span></p>
 <p> Advantages:</p>
 <p>​        利用了每个候选像素周围的邻域内通量预测之间的一致性。如果骨架位置发生变化，其周围的通量场也会发生显著变化。一个有益的副作用是，该方法不直接依赖于更深层CNN层产生的粗反应来定位更大尺度的骨骼，这进一步减少了定位误差。这些特性使骨架点的定位更加稳健，特别是在结扎点周围，更不容易出现缺口、不连续和不规则性。</p>
-<p>Then we can see the figure:<br><img   class="lazyload" data-original="/2022/01/20/deepflux/blog\myblog\source_posts\deepflux\3.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>Then we can see the figure:<br><img   class="lazyload" data-original="/2022/01/20/deepflux/blog\myblog\source_posts\deepflux\3.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ><span class="image-caption">3</span></p>
 <p>it can recover medial axes reflecting object part symmetries by localizing points with high inward flux (followed by a morphological closing), or by using additional convolution layers, which makes the entire pipeline end-to-end trainable（就是说通量这个信息量可以使用额外的卷积层来学习，或者使用通量大的信息进行定位）</p>
 <h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3>
       </section>
