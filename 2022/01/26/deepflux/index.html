@@ -201,7 +201,7 @@
     <div class="head-info">
       <span class="post-info-item"><i class="iconfont iconcalendar"></i>January 26, 2022</span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>6356</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>6323</span>
     </div>
   </div>
 </section>
@@ -259,7 +259,7 @@
 <p><img   class="lazyload" data-original="/2022/01/26/deepflux/ASPP2.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
 <p>就是说保持了输出的尺寸，让出来的特征变大也就是感受野变大。</p>
 <p>In the following I show the way to calculate the receptive field:</p>
-<p>![](deepflux/receptive field.png)</p>
+<p><img   class="lazyload" data-original="/2022/01/26/deepflux/receptive_field.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
 <p>we fuse the feature maps from side outputs at conv3, conv4, conv5, and ASPP layers, after convolving them with  1 × 1 kernel, we adjust them to the dimension of conv3(feature maps at different levels have different spatial resolutions), then predict the learnt flux field and use the  bilinear interpolation to  up-sample it to the  dimension of input image ,which is  a 2-channel response map, corresponding to flux predictions Fˆ(p) for every pixel p in the image.(The third module and the fourth module,用双线性插值进行上采样来resize确定像素点的F(p)值)</p>
 <p>上采样方法(up-sample)：<br><img   class="lazyload" data-original="/2022/01/26/deepflux/up-sample.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
 <p>Then we should extract the skeleton from the 2-channel response map, and we have two approaches to make it.</p>
